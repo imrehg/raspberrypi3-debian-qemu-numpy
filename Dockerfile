@@ -1,15 +1,19 @@
 FROM imrehg/raspberrypi3-debian-qemu
 
-RUN apt-get update && apt-get install dbus
+RUN [ "cross-build-start" ]
 
-ENV DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket
+RUN    apt-get update \
+    && apt-get install base-devel python3 python3-pip python3-dev \
+         libatlas-dev \
+         libblas-dev \
+         liblapack-dev
+         gfortran \
+         libatlas-base-dev \
+    && pip install -U pip
 
-CMD  dbus-send \
-  --system \
-  --print-reply \
-  --reply-timeout=2000 \
-  --type=method_call \
-  --dest=org.freedesktop.Avahi \
-  / \
-  org.freedesktop.Avahi.Server.GetHostName \
-  && while : ; do echo "Idling..."; sleep 60; done
+ENV NUMPY_VERSION=1.12.1
+RUN pip install numpy==${NUMPY_VERSION}
+ENV SCIPY_VERSION=0.19.0
+RUN pip install scipy==${SCIPY_VERSION}
+
+RUN [ "cross-build-end" ]
