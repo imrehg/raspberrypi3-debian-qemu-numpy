@@ -6,7 +6,7 @@ RUN    apt-get update \
     && apt-get install build-essential python3 python3-pip python3-dev \
          libatlas-dev \
          libblas-dev \
-         liblapack-dev
+         liblapack-dev \
          gfortran \
          libatlas-base-dev \
     && pip install -U pip
