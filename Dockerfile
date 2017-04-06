@@ -3,7 +3,7 @@ FROM imrehg/raspberrypi3-debian-qemu
 RUN [ "cross-build-start" ]
 
 RUN    apt-get update \
-    && apt-get install base-devel python3 python3-pip python3-dev \
+    && apt-get install build-essential python3 python3-pip python3-dev \
          libatlas-dev \
          libblas-dev \
          liblapack-dev
